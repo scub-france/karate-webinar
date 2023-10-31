@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  karate-chrome:
+    image: karatelabs/karate-chrome
+    container_name: karate
+    ports:
+      - "5900:5900"
+      - "9222:9222"
+    volumes:
+      - "./:/src"
+      - "./target/karate-reports/:/target/karate-reports/"
+    environment:
+      KARATE_SOCAT_START: "true"
+    cap_add:
+      - SYS_ADMIN

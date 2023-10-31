@@ -1,0 +1,22 @@
+[
+  {
+    "nav_path": "/architecture",
+    "nav_text": "Software Architecture Guide",
+    "existing_path": "/microservices"
+  },
+  {
+    "nav_path": "/aboutMe.html",
+    "nav_text": "Martin Fowler",
+    "existing_path": "/aboutMe.html"
+  },
+  {
+    "nav_path": "/aboutMe.html",
+    "nav_text": "Martin Fowler",
+    "existing_path": "/architecture"
+  },
+  {
+    "nav_path": "/architecture",
+    "nav_text": "Software Architecture Guide",
+    "existing_path": "/architecture"
+  }
+]
