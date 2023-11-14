@@ -7,6 +7,8 @@ Feature: Navigation on Martin Fowler website to verify accessibility of data
     And I verify an element with href "<existing_path>" exists
 
     Examples:
-      # Here you'd list the rows of data from your data.json. It's static in Cucumber unlike Karate.
       | nav_path | nav_text | existing_path |
       | /architecture | Software Architecture Guide | /microservices  |
+      | /aboutMe.html | Martin Fowler | /aboutMe.html  |
+      | /aboutMe.html | Martin Fowler | /architecture  |
+      | /architecture | Software Architecture Guide | /architecture  |

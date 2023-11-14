@@ -3,7 +3,7 @@ version: '3.7'
 services:
   karate-chrome:
     image: karatelabs/karate-chrome
-    container_name: karate
+    container_name: karate-compose
     ports:
       - "5900:5900"
       - "9222:9222"
