@@ -1,4 +1,4 @@
-package scrapper;
+package inspector;
 
 import com.intuit.karate.Results;
 import com.intuit.karate.Runner;
