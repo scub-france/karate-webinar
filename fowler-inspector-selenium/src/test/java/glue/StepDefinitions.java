@@ -47,5 +47,6 @@ public class StepDefinitions {
     @After
     public void tearDown() {
         seleniumService.closeBrowser();
+//        seleniumService.generateReport();
     }
 }

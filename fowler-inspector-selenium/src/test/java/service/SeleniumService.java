@@ -1,5 +1,7 @@
 package service;
 
+import net.masterthought.cucumber.Configuration;
+import net.masterthought.cucumber.ReportBuilder;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -10,9 +12,11 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SeleniumService {
@@ -48,6 +52,17 @@ public class SeleniumService {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName("chrome"); // or "firefox"
         return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+    }
+
+    public void generateReport() {
+        File reportOutputDirectory = new File("target");
+        List<String> jsonFiles = new ArrayList<>();
+        jsonFiles.add("target/cucumber-json-report.json");
+
+        String projectName = "Fowler Inspector";
+        Configuration configuration = new Configuration(reportOutputDirectory, projectName);
+        ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
+        reportBuilder.generateReports();
     }
 
     public void closeBrowser() {
