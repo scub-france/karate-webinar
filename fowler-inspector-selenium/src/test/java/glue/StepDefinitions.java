@@ -12,7 +12,6 @@ public class StepDefinitions {
 
     private SeleniumService seleniumService;
 
-    // PicoContainer injects SeleniumService
     public StepDefinitions(SeleniumService seleniumService) {
         this.seleniumService = seleniumService;
     }
@@ -35,7 +34,6 @@ public class StepDefinitions {
 
     @And("I wait for an element containing text {string}")
     public void i_wait_for_an_element_containing_text(String textContent) {
-//        seleniumService.waitForElementByXpath("//*[contains(text(),'" + textContent + "')]");
         seleniumService.verifyElementExistByXpath("//*[contains(text(),'" + textContent + "')]");
     }
 
@@ -47,6 +45,5 @@ public class StepDefinitions {
     @After
     public void tearDown() {
         seleniumService.closeBrowser();
-//        seleniumService.generateReport();
     }
 }

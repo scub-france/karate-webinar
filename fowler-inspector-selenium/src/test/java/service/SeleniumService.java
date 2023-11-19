@@ -20,35 +20,64 @@ public class SeleniumService {
 
     private WebDriver driver;
 
+    /**
+     * Initialize the WebDriver based on the BROWSER environment variable.
+     */
     public void initializeDriver() {
-        String browserType = System.getenv("BROWSER");
+        String browserType = System.getProperty("browser");
         driver = "hub".equals(browserType) ? getHubDriver() : getLocalWebDriver();
     }
 
+    /**
+     * Navigate to the given URL.
+     * @param url The URL to navigate to.
+     */
     public void navigateToUrl(final String url) {
         driver.get(url);
     }
 
+    /**
+     * Wait for the element to be present on the page.
+     * @param locator The locator for the element.
+     * @param timeoutInSeconds The timeout in seconds.
+     * @return The WebElement.
+     */
     public WebElement waitForElement(By locator, int timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
+    /**
+     * Verify that the element exists on the page.
+     * @param elementXpath The XPath for the element.
+     */
     public void verifyElementExistByXpath(final String elementXpath) {
         List<WebElement> elements = driver.findElements(By.xpath(elementXpath));
         Assert.assertFalse("The element with XPath [" + elementXpath + "] does not exist.", elements.isEmpty());
     }
 
+    /**
+     * Click on the element with the given XPath.
+     * @param elementXpath The XPath for the element.
+     */
     public void clickOnElementByXpath(final String elementXpath) {
-        WebElement element = waitForElement(By.xpath(elementXpath), 1); // Adjust timeout as needed
+        WebElement element = waitForElement(By.xpath(elementXpath), 1);
         element.click();
     }
 
+    /**
+     * Get the local WebDriver.
+     * @return The WebDriver.
+     */
     public WebDriver getLocalWebDriver() {
         return new ChromeDriver();
     }
 
 
+    /**
+     * Get the hub WebDriver.
+     * @return The WebDriver.
+     */
     public WebDriver getHubDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
@@ -67,6 +96,9 @@ public class SeleniumService {
         }
     }
 
+    /**
+     * Close the browser.
+     */
     public void closeBrowser() {
         if (driver != null) {
             driver.quit();
