@@ -6,7 +6,6 @@ services:
     ports:
       - "4444:4444"
 
-
   chrome-node:
     image: selenium/node-chrome:latest
     depends_on:

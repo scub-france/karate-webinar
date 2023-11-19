@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -20,9 +21,8 @@ public class SeleniumService {
     private WebDriver driver;
 
     public void initializeDriver() {
-        if (this.driver == null) {
-            this.driver = getHubDriver();
-        }
+        String browserType = System.getenv("BROWSER");
+        driver = "hub".equals(browserType) ? getHubDriver() : getLocalWebDriver();
     }
 
     public void navigateToUrl(final String url) {
@@ -43,6 +43,11 @@ public class SeleniumService {
         WebElement element = waitForElement(By.xpath(elementXpath), 1); // Adjust timeout as needed
         element.click();
     }
+
+    public WebDriver getLocalWebDriver() {
+        return new ChromeDriver();
+    }
+
 
     public WebDriver getHubDriver() {
         ChromeOptions options = new ChromeOptions();
