@@ -1,22 +1,18 @@
 package service;
 
-import net.masterthought.cucumber.Configuration;
-import net.masterthought.cucumber.ReportBuilder;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SeleniumService {
@@ -25,7 +21,7 @@ public class SeleniumService {
 
     public void initializeDriver() {
         if (this.driver == null) {
-            this.driver = new ChromeDriver();
+            this.driver = getHubDriver();
         }
     }
 
@@ -48,21 +44,22 @@ public class SeleniumService {
         element.click();
     }
 
-    public WebDriver getHubDriver() throws MalformedURLException {
+    public WebDriver getHubDriver() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setBrowserName("chrome"); // or "firefox"
-        return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
-    }
+        capabilities.setBrowserName("chrome");
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
 
-    public void generateReport() {
-        File reportOutputDirectory = new File("target");
-        List<String> jsonFiles = new ArrayList<>();
-        jsonFiles.add("target/cucumber-json-report.json");
-
-        String projectName = "Fowler Inspector";
-        Configuration configuration = new Configuration(reportOutputDirectory, projectName);
-        ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
-        reportBuilder.generateReports();
+        try {
+            return new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void closeBrowser() {
