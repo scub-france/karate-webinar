@@ -17,7 +17,7 @@ docker-compose up -d
 
 Then launch test with the following command:
 ```
-mvn test -Dbrowser=hub 
+mvn test -Denv=hub 
 ```
 
 

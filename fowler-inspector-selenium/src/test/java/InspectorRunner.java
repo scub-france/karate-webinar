@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
         features = "src/test/features",
         glue = "glue",
         plugin = { "pretty", "html:target/cucumber-reports.html" }
-//        plugin = {"pretty"}
 )
 public class InspectorRunner {
 }

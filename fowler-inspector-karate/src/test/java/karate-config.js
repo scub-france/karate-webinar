@@ -1,8 +1,8 @@
 function fn() {
-    var config = {
+    const config = {
         baseUrl: 'https://martinfowler.com'
     };
-    if (karate.env == 'docker') {
+    if (karate.env === 'docker') {
         karate.configure('driver', {
             type: 'chrome',
             remote: true,

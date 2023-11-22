@@ -21,10 +21,10 @@ public class SeleniumService {
     private WebDriver driver;
 
     /**
-     * Initialize the WebDriver based on the BROWSER environment variable.
+     * Initialize the WebDriver based on the "env" environment variable.
      */
     public void initializeDriver() {
-        String browserType = System.getProperty("browser");
+        String browserType = System.getProperty("env");
         driver = "hub".equals(browserType) ? getHubDriver() : getLocalWebDriver();
     }
 
@@ -61,7 +61,7 @@ public class SeleniumService {
      * @param elementXpath The XPath for the element.
      */
     public void clickOnElementByXpath(final String elementXpath) {
-        WebElement element = waitForElement(By.xpath(elementXpath), 1);
+        WebElement element = waitForElement(By.xpath(elementXpath), 3);
         element.click();
     }
 
